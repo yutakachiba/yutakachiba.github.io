@@ -4,7 +4,7 @@
   <title><![CDATA[chobe-log]]></title>
   <link href="http://yutakachiba.github.io/atom.xml" rel="self"/>
   <link href="http://yutakachiba.github.io/"/>
-  <updated>2014-10-21T11:26:36+09:00</updated>
+  <updated>2014-10-21T11:33:04+09:00</updated>
   <id>http://yutakachiba.github.io/</id>
   <author>
     <name><![CDATA[Yutaka Chiba]]></name>
@@ -12,28 +12,5 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressを導入する]]></title>
-    <link href="http://yutakachiba.github.io/blog/2014/10/17/title/"/>
-    <updated>2014-10-17T14:21:44+09:00</updated>
-    <id>http://yutakachiba.github.io/blog/2014/10/17/title</id>
-    <content type="html"><![CDATA[<h2>はじめに</h2>
-
-<h2>Octopressのインストール</h2>
-
-<h2>GitHub Pagesへのデプロイ</h2>
-
-<h2>テーマの変更</h2>
-
-<h2>新規記事の作成</h2>
-
-<h2>既存記事の編集</h2>
-
-<h2>既存記事の削除</h2>
-
-<h2>まとめ</h2>
-]]></content>
-  </entry>
   
 </feed>
