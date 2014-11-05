@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[chobe-log]]></title>
+  <title><![CDATA[千葉豊のブログ]]></title>
   <link href="http://yutakachiba.github.io/atom.xml" rel="self"/>
   <link href="http://yutakachiba.github.io/"/>
-  <updated>2014-10-21T11:33:04+09:00</updated>
+  <updated>2014-11-05T11:31:24+09:00</updated>
   <id>http://yutakachiba.github.io/</id>
   <author>
     <name><![CDATA[Yutaka Chiba]]></name>
@@ -12,5 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[新規PHPプロジェクトを作成する]]></title>
+    <link href="http://yutakachiba.github.io/blog/2014/11/04/init-php-project/"/>
+    <updated>2014-11-04T10:36:15+09:00</updated>
+    <id>http://yutakachiba.github.io/blog/2014/11/04/init-php-project</id>
+    <content type="html"><![CDATA[<p>新規PHPプロジェクトの開発を始めるための手順をまとめた備忘録です。</p>
+
+<h2 id="section">環境</h2>
+
+<p>＊ 各環境のインストールや設定手順はここでは説明しません。</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align: left">環境</th>
+      <th style="text-align: left">説明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">開発環境</td>
+      <td style="text-align: left">OSX Mavericks + PhpStorm + composer + Vagrant + ansible + git</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">テスト環境</td>
+      <td style="text-align: left">LAN内のサーバに apache + jenkins を立ててテストします。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">プロジェクト管理</td>
+      <td style="text-align: left">LAN内のサーバに redmine + gitlab を立てて管理します。</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="gitlab">gitlabに新規プロジェクトを作成</h3>
+
+<p>作成完了画面に表示されるgitのURLをメモしておく。</p>
+
+<pre><code>git@gitlab.hoge:Namespace/new-project.git
+</code></pre>
+
+<h3 id="redmine">Redmineに新規プロジェクトを作成</h3>
+
+<p>Redmineで新規プロジェクトを作成し、「設定」タブからレポジトリを追加します。</p>
+
+<p>gitlab 7.3 omnibus を yumで入れているので、レポジトリのパスは</p>
+
+<pre><code>/var/opt/gitlab/git-data/repositories/Namespace/new-project.git
+</code></pre>
+
+<p>のようになります。</p>
+
+<p>＊レポジトリが見えない場合、redmine を実行しているユーザ(apacheなど)が、レポジトリにアクセスできない可能性があります。</p>
+
+<p>私の環境の場合、/var/opt/gitlab/git-data/repositories のパーミッションは 0770 でしたので</p>
+
+<pre><code># usermod -aG git apache
+</code></pre>
+
+<p>としたところ、レポジトリが見えるようになりました。</p>
+
+<h3 id="section-1">プロジェクトを新規作成</h3>
+
+<p>ここからは、ローカルの開発PCでの手順です。</p>
+
+<p>プロジェクトの作成には、<a href="http://qiita.comhttps://github.com/koriym/PHP.Skeleton" title="PHP.Skeleton">Php.Skeleton</a> を利用します。phpunit、ant、jenkins の設定ファイルなど、CIを行うための環境が簡単に整うので、大変便利です。</p>
+
+<pre><code>$ cd ~/Projects
+$ composer create-project php/skeleton {Vendor.Package}
+$ cd {Vendor.Package}
+$ composer dump-autoload
+$ phpunit
+</code></pre>
+
+<p>初期データや既存データがある場合はデータをコピーします。</p>
+
+<pre><code>例えばEC2にアップしているデータをコピーしてくる場合
+
+$ rsync -avz --delete ec2:/path/to/data/ .
+
+もしくは
+
+$ scp -pr ec2:/path/to/data .
+</code></pre>
+
+<h3 id="gitignore">.gitignoreを生成</h3>
+
+<p>.gitignore の生成には gibo を利用します。Php.Skeleton で用意されている .gitignore に上書きしてしまいます。</p>
+
+<pre><code>$ brew update
+$ gibo OSX Windows Java C Vagrant JetBrains Eclipse Emacs Vim Composer Node &gt; .gitignore
+</code></pre>
+
+<h3 id="gitgitlabpush">git管理下に登録しgitlabにpush</h3>
+
+<pre><code>$ git init
+$ git add .
+$ git commit -m "first commit"
+$ git remote add origin git@gitlab.hoge:Namespace/new-project.git
+$ git push -u origin master
+</code></pre>
+
+<h3 id="section-2">開発用ブランチを作成</h3>
+
+<pre><code>$ git checkout -b develop
+</code></pre>
+
+]]></content>
+  </entry>
   
 </feed>
